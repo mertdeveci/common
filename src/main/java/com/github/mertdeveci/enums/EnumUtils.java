@@ -1,10 +1,6 @@
 package com.github.mertdeveci.enums;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public final class EnumUtils {
-    private static final Logger logger = LoggerFactory.getLogger(EnumUtils.class);
 
     private EnumUtils() {
     }
