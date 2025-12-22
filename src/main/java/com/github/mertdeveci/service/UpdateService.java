@@ -5,7 +5,8 @@ import com.github.mertdeveci.entity.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.utils.DateHelper;
 
-public abstract class UpdateService<T extends AbstractIdStatusEntity> {
+public abstract class UpdateService<T extends AbstractIdStatusEntity>
+        extends AbstractEntityService {
 
     public abstract T update(T entity);
 
@@ -17,25 +18,25 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity> {
         };
     }
 
-    public T activate(T entity){
+    public T activate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throw new IllegalArgumentException("Deleted entity cannot be activated!");
+            throw createEntityNotFoundException().get();
         }
         entity.setStatus(Status.ACTIVE);
         entity.setLastUpdateDate(DateHelper.now());
         return update(entity);
     }
 
-    public T passivate(T entity){
+    public T passivate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throw new IllegalArgumentException("Deleted entity cannot be passivated!");
+            throw createEntityNotFoundException().get();
         }
         entity.setStatus(Status.PASSIVE);
         entity.setLastUpdateDate(DateHelper.now());
         return update(entity);
     }
 
-    public T delete(T entity){
+    public T delete(T entity) {
         entity.setStatus(Status.DELETED);
         entity.setLastUpdateDate(DateHelper.now());
         return update(entity);
