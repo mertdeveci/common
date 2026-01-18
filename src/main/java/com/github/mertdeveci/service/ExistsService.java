@@ -4,15 +4,11 @@ import com.github.mertdeveci.enums.Status;
 
 import java.util.function.Supplier;
 
-public abstract class ExistenceService<I extends Number> {
+public abstract class ExistsService<I extends Number> {
 
-    public boolean exists(I id) {
-        throw new IllegalArgumentException("Method must be overloaded!");
-    }
+    public abstract boolean exists(I id);
 
-    public boolean exists(I id, Status status) {
-        throw new IllegalArgumentException("Method must be overloaded!");
-    }
+    public abstract boolean exists(I id, Status status);
 
     public boolean absent(I id) {
         return !exists(id);
