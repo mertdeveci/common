@@ -3,11 +3,11 @@ package com.github.mertdeveci.service;
 import com.github.mertdeveci.entity.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
-import com.github.mertdeveci.service.exceptions.ExceptionUtilityService;
 import com.github.mertdeveci.utils.DateHelper;
+import com.github.mertdeveci.utils.ExceptionUtils;
 
 public abstract class UpdateService<T extends AbstractIdStatusEntity>
-        implements ExceptionUtilityService {
+        implements ExceptionUtils.IllegalArgumentExceptions {
 
     public abstract T update(T entity);
 
@@ -21,7 +21,7 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
 
     public T activate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throwIllegalArgumentException("illegal.argument.exception.deleted.entity.cannot.activate");
+            throwEntityNotFoundException();
         }
         entity.setStatus(Status.ACTIVE);
         entity.setLastUpdateDate(DateHelper.now());
@@ -30,7 +30,7 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
 
     public T passivate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throwIllegalArgumentException("illegal.argument.exception.passivated.entity.cannot.activate");
+            throwEntityNotFoundException();
         }
         entity.setStatus(Status.PASSIVE);
         entity.setLastUpdateDate(DateHelper.now());
