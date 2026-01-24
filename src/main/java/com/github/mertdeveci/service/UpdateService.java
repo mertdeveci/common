@@ -24,7 +24,7 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
             throwEntityNotFoundException();
         }
         entity.setStatus(Status.ACTIVE);
-        entity.setLastUpdateDate(DateHelper.now());
+        entity.setUdate(DateHelper.now());
         return update(entity);
     }
 
@@ -33,13 +33,13 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
             throwEntityNotFoundException();
         }
         entity.setStatus(Status.PASSIVE);
-        entity.setLastUpdateDate(DateHelper.now());
+        entity.setUdate(DateHelper.now());
         return update(entity);
     }
 
     public T delete(T entity) {
         entity.setStatus(Status.DELETED);
-        entity.setLastUpdateDate(DateHelper.now());
+        entity.setUdate(DateHelper.now());
         return update(entity);
     }
 }

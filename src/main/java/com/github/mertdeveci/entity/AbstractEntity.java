@@ -20,10 +20,10 @@ public abstract class AbstractEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "idate", nullable = false)
     @CreationTimestamp
-    private Date createDate;
+    private Date idate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "udate")
     @UpdateTimestamp
-    private Date lastUpdateDate;
+    private Date udate;
 }
