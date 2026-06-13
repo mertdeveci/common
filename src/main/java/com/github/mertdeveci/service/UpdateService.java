@@ -4,10 +4,8 @@ import com.github.mertdeveci.entity.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.utils.DateHelper;
-import com.github.mertdeveci.utils.ExceptionUtils;
 
-public abstract class UpdateService<T extends AbstractIdStatusEntity>
-        implements ExceptionUtils.IllegalArgumentExceptions {
+public abstract class UpdateService<T extends AbstractIdStatusEntity> {
 
     public abstract T update(T entity);
 
@@ -21,7 +19,7 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
 
     public T activate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throwEntityNotFoundException();
+            throw new IllegalArgumentException("Deleted entity cannot be activated!");
         }
         entity.setStatus(Status.ACTIVE);
         entity.setUdate(DateHelper.now());
@@ -30,7 +28,7 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
 
     public T passivate(T entity) {
         if (EntityUtils.isDeleted(entity)) {
-            throwEntityNotFoundException();
+            throw new IllegalArgumentException("Deleted entity cannot be passivated!");
         }
         entity.setStatus(Status.PASSIVE);
         entity.setUdate(DateHelper.now());
@@ -38,6 +36,9 @@ public abstract class UpdateService<T extends AbstractIdStatusEntity>
     }
 
     public T delete(T entity) {
+        if (EntityUtils.isDeleted(entity)) {
+            throw new IllegalArgumentException("Entity is already deleted!");
+        }
         entity.setStatus(Status.DELETED);
         entity.setUdate(DateHelper.now());
         return update(entity);
