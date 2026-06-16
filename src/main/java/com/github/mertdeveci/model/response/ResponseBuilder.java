@@ -1,7 +1,7 @@
 package com.github.mertdeveci.model.response;
 
 import com.github.mertdeveci.enums.ResponseStatus;
-import com.github.mertdeveci.utils.DateHelper;
+import com.github.mertdeveci.helper.DateHelper;
 
 import static com.github.mertdeveci.enums.ResponseStatus.ERROR;
 import static com.github.mertdeveci.enums.ResponseStatus.SUCCESS;

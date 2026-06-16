@@ -1,4 +1,4 @@
-package com.github.mertdeveci.service;
+package com.github.mertdeveci.entity.service;
 
 import com.github.mertdeveci.enums.Status;
 
@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class ExistsService<I extends Number> {
+public abstract class EntityExistsService<I extends Number> {
 
     public abstract boolean exists(I id, Status status);
 

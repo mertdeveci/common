@@ -12,7 +12,10 @@ public final class EntityUtils {
     private EntityUtils() {}
 
     public static boolean isStatusEqualTo(AbstractStatusEntity entity, Status status) {
-        return Optional.ofNullable(entity).map(AbstractStatusEntity::getStatus).filter(s -> s.equals(status)).isPresent();
+        return Optional.ofNullable(entity)
+                .map(AbstractStatusEntity::getStatus)
+                .filter(s -> s.equals(status))
+                .isPresent();
     }
 
     public static boolean isStatusNotEqual(AbstractStatusEntity entity, Status status) {

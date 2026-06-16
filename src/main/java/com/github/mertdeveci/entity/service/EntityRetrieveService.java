@@ -1,4 +1,4 @@
-package com.github.mertdeveci.service;
+package com.github.mertdeveci.entity.service;
 
 import com.github.mertdeveci.entity.AbstractIdStatusEntity;
 import com.github.mertdeveci.enums.Status;
@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class RetrieveService<E extends AbstractIdStatusEntity> {
+public abstract class EntityRetrieveService<E extends AbstractIdStatusEntity> {
 
     public abstract Optional<E> findByIdAndStatus(Long id, Status status);
 

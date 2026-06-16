@@ -1,11 +1,11 @@
-package com.github.mertdeveci.service;
+package com.github.mertdeveci.entity.service;
 
 import com.github.mertdeveci.entity.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
-import com.github.mertdeveci.utils.DateHelper;
+import com.github.mertdeveci.helper.DateHelper;
 
-public abstract class UpdateService<T extends AbstractIdStatusEntity> {
+public abstract class EntityUpdateService<T extends AbstractIdStatusEntity> {
 
     public abstract T update(T entity);
 

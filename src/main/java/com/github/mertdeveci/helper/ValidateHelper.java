@@ -1,8 +1,8 @@
-package com.github.mertdeveci.utils;
+package com.github.mertdeveci.helper;
 
 import java.util.function.Supplier;
 
-public class ValidatorUtils {
+public class ValidateHelper {
 
     public static <E extends Exception> void throwIf(boolean valid, Supplier<E> e) throws E {
         if(valid) {
