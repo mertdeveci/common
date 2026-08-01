@@ -3,13 +3,13 @@ package com.github.mertdeveci.entity.utils;
 import com.github.mertdeveci.entity.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.AbstractStatusEntity;
 import com.github.mertdeveci.enums.Status;
+import lombok.experimental.UtilityClass;
 
 import java.util.Objects;
 import java.util.Optional;
 
+@UtilityClass
 public final class EntityUtils {
-
-    private EntityUtils() {}
 
     public static boolean isStatusEqualTo(AbstractStatusEntity entity, Status status) {
         return Optional.ofNullable(entity)

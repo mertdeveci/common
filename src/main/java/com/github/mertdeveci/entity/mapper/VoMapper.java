@@ -2,7 +2,7 @@ package com.github.mertdeveci.entity.mapper;
 
 import com.github.mertdeveci.entity.AbstractEntity;
 
-public interface VoMapper<E extends AbstractEntity, V> {
+import java.util.function.Function;
 
-    V mapToVo(E entity);
+public interface VoMapper <E extends AbstractEntity, V extends Record> extends Function<E, V> {
 }
