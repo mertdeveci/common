@@ -1,6 +1,6 @@
 package com.github.mertdeveci.entity.service;
 
-import com.github.mertdeveci.entity.AbstractIdStatusEntity;
+import com.github.mertdeveci.entity.model.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.helper.DateHelper;

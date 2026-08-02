@@ -1,6 +1,6 @@
 package com.github.mertdeveci.entity.mapper;
 
-import com.github.mertdeveci.entity.AbstractEntity;
+import com.github.mertdeveci.entity.model.AbstractEntity;
 
 import java.util.function.Function;
 

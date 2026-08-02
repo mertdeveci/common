@@ -1,4 +1,4 @@
-package com.github.mertdeveci.entity;
+package com.github.mertdeveci.entity.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
