@@ -2,6 +2,7 @@ package com.github.mertdeveci.entity.service;
 
 import com.github.mertdeveci.entity.model.AbstractIdStatusEntity;
 import com.github.mertdeveci.entity.mapper.VoMapper;
+import com.github.mertdeveci.entity.model.EntityVo;
 import com.github.mertdeveci.enums.Status;
 import org.springframework.lang.NonNull;
 
@@ -30,12 +31,12 @@ public abstract class EntityRetrieveService<E extends AbstractIdStatusEntity> {
     }
 
     // GET VO
-    public <V extends Record> Optional<V> findByIdAndStatus(@NonNull Long id, @NonNull Status status, @NonNull VoMapper<E,V> voMapper){
+    public <V extends EntityVo<E>> Optional<V> findByIdAndStatus(@NonNull Long id, @NonNull Status status, @NonNull VoMapper<E,V> voMapper){
         return findByIdAndStatus(id, status)
                 .map(voMapper);
     }
 
-    public <V extends Record> Optional<V> findActiveById(@NonNull Long id, @NonNull VoMapper<E,V> voMapper) {
+    public <V extends EntityVo<E>> Optional<V> findActiveById(@NonNull Long id, @NonNull VoMapper<E,V> voMapper) {
         return findByIdAndStatus(id, Status.ACTIVE)
                 .map(voMapper);
     }
