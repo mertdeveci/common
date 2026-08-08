@@ -6,11 +6,11 @@ import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.helper.DateHelper;
 import org.springframework.lang.NonNull;
 
-public abstract class EntityUpdateService<T extends AbstractIdStatusEntity> {
+public abstract class EntityUpdateService<E extends AbstractIdStatusEntity> {
 
-    public abstract T update(@NonNull T entity);
+    public abstract E update(@NonNull E entity);
 
-    public T update(@NonNull T entity, @NonNull Status status) {
+    public E update(@NonNull E entity, @NonNull Status status) {
         return switch (status) {
             case ACTIVE -> activate(entity);
             case PASSIVE -> passivate(entity);
@@ -18,7 +18,7 @@ public abstract class EntityUpdateService<T extends AbstractIdStatusEntity> {
         };
     }
 
-    public T activate(@NonNull T entity) {
+    public E activate(@NonNull E entity) {
         if (EntityUtils.isDeleted(entity)) {
             throw new IllegalArgumentException("Deleted entity cannot be activated!");
         }
@@ -27,7 +27,7 @@ public abstract class EntityUpdateService<T extends AbstractIdStatusEntity> {
         return update(entity);
     }
 
-    public T passivate(@NonNull T entity) {
+    public E passivate(@NonNull E entity) {
         if (EntityUtils.isDeleted(entity)) {
             throw new IllegalArgumentException("Deleted entity cannot be passivated!");
         }
@@ -36,7 +36,7 @@ public abstract class EntityUpdateService<T extends AbstractIdStatusEntity> {
         return update(entity);
     }
 
-    public T delete(@NonNull T entity) {
+    public E delete(@NonNull E entity) {
         if (EntityUtils.isDeleted(entity)) {
             throw new IllegalArgumentException("Entity is already deleted!");
         }
