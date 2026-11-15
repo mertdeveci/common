@@ -1,7 +1,6 @@
 package com.github.mertdeveci.model.response;
 
 import com.github.mertdeveci.enums.ResponseStatus;
-import com.github.mertdeveci.helper.DateHelper;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -21,10 +20,10 @@ public final class ResponseBuilder {
     public static <K extends Response> K success(Supplier<K> f) {
         return builder(f).status(SUCCESS).build();
     }
-    public static <K extends Response> K successMessage(Supplier<K> f, String message) {
+    public static <K extends Response> K successWithMessage(Supplier<K> f, String message) {
         return builder(f).status(SUCCESS).message(message).build();
     }
-    public static <K extends Response, T> K successBody(Supplier<K> f, T body) {
+    public static <K extends Response, T> K successWithBody(Supplier<K> f, T body) {
         return builder(f).status(SUCCESS).body(body).build();
     }
 
@@ -35,7 +34,7 @@ public final class ResponseBuilder {
     public static <K extends Response> K error(Supplier<K> f, String errorCode, String message) {
         return builder(f).status(ERROR).errorCode(errorCode).message(message).build();
     }
-    public static <K extends Response, T> K errorBody(Supplier<K> f, T body) {
+    public static <K extends Response, T> K errorWithBody(Supplier<K> f, T body) {
         return builder(f).status(ERROR).body(body).build();
     }
 
