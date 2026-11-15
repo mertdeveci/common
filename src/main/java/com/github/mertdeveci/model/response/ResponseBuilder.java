@@ -3,109 +3,59 @@ package com.github.mertdeveci.model.response;
 import com.github.mertdeveci.enums.ResponseStatus;
 import com.github.mertdeveci.helper.DateHelper;
 
+import java.util.Objects;
+import java.util.function.Supplier;
+
 import static com.github.mertdeveci.enums.ResponseStatus.ERROR;
 import static com.github.mertdeveci.enums.ResponseStatus.SUCCESS;
 
-public class ResponseBuilder {
+public final class ResponseBuilder {
 
-    private Builder successBuilder(){
-        return builder()
-                .status(SUCCESS)
-                .systemTime();
+    private ResponseBuilder() {}
+
+    public static <K extends Response> Builder<K> builder(Supplier<K> factory) {
+        return new Builder<>(factory.get()).systemTime();
     }
 
-    private Builder errorBuilder(){
-        return builder()
-                .status(ERROR)
-                .systemTime();
+    // --- success ---
+    public static <K extends Response> K success(Supplier<K> f) {
+        return builder(f).status(SUCCESS).build();
+    }
+    public static <K extends Response> K successMessage(Supplier<K> f, String message) {
+        return builder(f).status(SUCCESS).message(message).build();
+    }
+    public static <K extends Response, T> K successBody(Supplier<K> f, T body) {
+        return builder(f).status(SUCCESS).body(body).build();
     }
 
-    public Response success(){
-        return successBuilder()
-                .build();
+    // --- error ---
+    public static <K extends Response> K error(Supplier<K> f) {
+        return builder(f).status(ERROR).build();
+    }
+    public static <K extends Response> K error(Supplier<K> f, String errorCode, String message) {
+        return builder(f).status(ERROR).errorCode(errorCode).message(message).build();
+    }
+    public static <K extends Response, T> K errorBody(Supplier<K> f, T body) {
+        return builder(f).status(ERROR).body(body).build();
     }
 
-    public Response success(String message){
-        return successBuilder()
-                .message(message)
-                .build();
-    }
+    public static final class Builder<K extends Response> {
+        private final K response;
 
-    public Response success(String message, String local){
-        return successBuilder()
-                .message(message)
-                .local(local)
-                .build();
-    }
-
-    public <T> Response success(T body){
-        return successBuilder()
-                .body(body)
-                .build();
-    }
-
-    public Response error(){
-        return errorBuilder()
-                .build();
-    }
-
-    public Response error(String errorMessage){
-        return errorBuilder()
-                .message(errorMessage)
-                .build();
-    }
-
-    public <T> Response error(T body){
-        return errorBuilder()
-                .body(body)
-                .build();
-    }
-
-    public Builder builder(){
-        return new Builder();
-    }
-
-    public static class Builder{
-        private final Response response;
-
-        private Builder() {
-            this.response = new Response();
+        private Builder(K response) {
+            this.response = Objects.requireNonNull(response);
         }
 
-        public Builder status(ResponseStatus responseStatus){
-            if (responseStatus == SUCCESS) {
-                this.response.setSuccess(true);
-            }
+        public Builder<K> status(ResponseStatus status) {
+            response.setSuccess(status == SUCCESS);
             return this;
         }
+        public Builder<K> message(String message)     { response.setMessage(message); return this; }
+        public Builder<K> errorCode(String errorCode) { response.setErrorCode(errorCode); return this; }
+        public Builder<K> locale(String locale)       { response.setLocal(locale); return this; }
+        public <T> Builder<K> body(T body)            { response.setData(body); return this; }
+        private Builder<K> systemTime()               { response.setSystemTime(System.currentTimeMillis()); return this; }
 
-        public Builder message(String message){
-            this.response.setMessage(message);
-            return this;
-        }
-
-        public Builder errorCode(String errorCode){
-            this.response.setErrorCode(errorCode);
-            return this;
-        }
-
-        public Builder systemTime(){
-            this.response.setSystemTime(DateHelper.now().getTime());
-            return this;
-        }
-
-        public Builder local(String local){
-            this.response.setLocal(local);
-            return this;
-        }
-
-        public <T> Builder body(T body){
-            this.response.setData(body);
-            return this;
-        }
-
-        public Response build(){
-            return response;
-        }
+        public K build() { return response; }
     }
 }
