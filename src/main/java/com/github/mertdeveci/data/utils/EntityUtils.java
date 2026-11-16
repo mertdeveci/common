@@ -1,7 +1,7 @@
-package com.github.mertdeveci.entity.utils;
+package com.github.mertdeveci.data.utils;
 
-import com.github.mertdeveci.entity.model.AbstractIdStatusEntity;
-import com.github.mertdeveci.entity.model.AbstractStatusEntity;
+import com.github.mertdeveci.data.entity.AbstractIdStatusEntity;
+import com.github.mertdeveci.data.entity.AbstractStatusEntity;
 import com.github.mertdeveci.enums.Status;
 import lombok.experimental.UtilityClass;
 

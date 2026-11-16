@@ -1,6 +1,6 @@
-package com.github.mertdeveci.entity.model;
+package com.github.mertdeveci.data.entity;
 
-import com.github.mertdeveci.entity.converter.StatusConverter;
+import com.github.mertdeveci.data.converter.StatusConverter;
 import com.github.mertdeveci.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;

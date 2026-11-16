@@ -1,4 +1,4 @@
-package com.github.mertdeveci.entity.converter;
+package com.github.mertdeveci.data.converter;
 
 import com.github.mertdeveci.enums.EnumUtils;
 import com.github.mertdeveci.enums.Status;

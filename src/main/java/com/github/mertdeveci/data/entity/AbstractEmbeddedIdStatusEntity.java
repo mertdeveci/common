@@ -1,4 +1,4 @@
-package com.github.mertdeveci.entity.model;
+package com.github.mertdeveci.data.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;

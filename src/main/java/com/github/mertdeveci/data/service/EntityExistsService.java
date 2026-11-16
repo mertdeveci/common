@@ -1,4 +1,4 @@
-package com.github.mertdeveci.entity.service;
+package com.github.mertdeveci.data.service;
 
 import com.github.mertdeveci.enums.Status;
 import org.springframework.lang.NonNull;

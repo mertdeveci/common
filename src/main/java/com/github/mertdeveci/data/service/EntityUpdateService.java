@@ -1,7 +1,7 @@
-package com.github.mertdeveci.entity.service;
+package com.github.mertdeveci.data.service;
 
-import com.github.mertdeveci.entity.model.AbstractIdStatusEntity;
-import com.github.mertdeveci.entity.utils.EntityUtils;
+import com.github.mertdeveci.data.entity.AbstractIdStatusEntity;
+import com.github.mertdeveci.data.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.helper.DateHelper;
 import org.springframework.lang.NonNull;
