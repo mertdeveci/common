@@ -19,7 +19,7 @@ public abstract class AbstractStatusEntity extends AbstractEntity {
         return Status.ACTIVE.equals(status);
     }
 
-    public boolean isInactive() {
+    public boolean isNotActive() {
         return !isActive();
     }
 

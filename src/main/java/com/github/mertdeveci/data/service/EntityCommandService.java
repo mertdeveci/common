@@ -1,42 +1,44 @@
 package com.github.mertdeveci.data.service;
 
 import com.github.mertdeveci.data.entity.AbstractIdStatusEntity;
-import com.github.mertdeveci.data.mapper.EntityMapper;
 import com.github.mertdeveci.data.repository.EntityBaseRepository;
 import com.github.mertdeveci.data.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
-import com.github.mertdeveci.helper.DateHelper;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Builder;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public abstract class EntityCommandService<E extends AbstractIdStatusEntity, V,
+public abstract class EntityCommandService<E extends AbstractIdStatusEntity,
         R extends EntityBaseRepository<E>> {
 
     protected final R repository;
-    protected final EntityMapper<E, V> mapper;
 
-    protected EntityCommandService(@NonNull R repository, @NonNull EntityMapper<E, V> mapper) {
+    protected EntityCommandService(@NonNull R repository) {
         this.repository = repository;
-        this.mapper = mapper;
     }
 
     // ---- CREATE / UPDATE ----
-    public E create(@NonNull V vo) {
-        E entity = mapper.toEntity(vo);
+
+    public E create(@NonNull E entity) {
+        if (entity.getId() != null) {
+            throw new IllegalArgumentException("New entity must not have an id");
+        }
+        if (entity.getStatus() == null) {
+            entity.setStatus(Status.ACTIVE);
+        } else if (EntityUtils.isDeleted(entity)) {
+            throw new IllegalArgumentException("Entity cannot be created as DELETED");
+        }
         beforeCreate(entity);
         return repository.save(entity);
     }
 
     public E update(@NonNull E entity) {
         beforeUpdate(entity);
-        entity.setUdate(DateHelper.now());
         return repository.save(entity);
     }
 
-    // ---- STATUS (yüklü entity üzerinden: lifecycle callback'leri ve @Version çalışır) ----
+    // ---- STATUS (entity üzerinden) ----
 
     public E changeStatus(@NonNull E entity, @NonNull Status target) {
         assertTransition(entity, target);
@@ -48,20 +50,22 @@ public abstract class EntityCommandService<E extends AbstractIdStatusEntity, V,
     public E passivate(@NonNull E entity) { return changeStatus(entity, Status.PASSIVE); }
     public E delete(@NonNull E entity)    { return changeStatus(entity, Status.DELETED); }
 
-    // ---- STATUS (ID üzerinden, entity yüklemeden tek UPDATE) ----
+    // ---- STATUS (ID üzerinden: entity yüklenir, tüm JPA mekanizmaları çalışır) ----
 
-    public void changeStatus(@NonNull Long id, @NonNull Status target) {
-        int affected = repository.updateStatus(id, target, DateHelper.now(), Status.DELETED);
-        if (affected == 0) {
-            throw new EntityNotFoundException("Entity not found or already deleted: id=" + id);
-        }
+    public E changeStatus(@NonNull Long id, @NonNull Status target) {
+        return changeStatus(load(id), target);
     }
 
-    public void activateById(@NonNull Long id)  { changeStatus(id, Status.ACTIVE); }
-    public void passivateById(@NonNull Long id) { changeStatus(id, Status.PASSIVE); }
-    public void deleteById(@NonNull Long id)    { changeStatus(id, Status.DELETED); }
+    public E activateById(@NonNull Long id)  { return changeStatus(id, Status.ACTIVE); }
+    public E passivateById(@NonNull Long id) { return changeStatus(id, Status.PASSIVE); }
+    public E deleteById(@NonNull Long id)    { return changeStatus(id, Status.DELETED); }
 
     // ---- HOOK'LAR ----
+
+    protected E load(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found: id=" + id));
+    }
 
     // Varsayılan kural: DELETED durumundaki entity'nin durumu değiştirilemez
     protected void assertTransition(E entity, Status target) {

@@ -86,7 +86,9 @@ public abstract class EntityQueryService<E extends AbstractIdStatusEntity,
     }
 
     public void runIfExists(@NonNull Long id, @NonNull Status status, @NonNull Runnable action) {
-        if (exists(id, status)) action.run();
+        if (exists(id, status)) {
+            action.run();
+        }
     }
 
     public void runIfActive(@NonNull Long id, @NonNull Runnable action) {
@@ -94,7 +96,9 @@ public abstract class EntityQueryService<E extends AbstractIdStatusEntity,
     }
 
     public void runIfAbsent(@NonNull Long id, @NonNull Status status, @NonNull Runnable action) {
-        if (!exists(id, status)) action.run();
+        if (!exists(id, status)) {
+            action.run();
+        }
     }
 
     // Alt sınıf kendi domain exception'ını döndürmek için override edebilir

@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,8 +18,11 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "idate", nullable = false)
+    @Column(name = "idate", nullable = false, updatable = false)
     @CreationTimestamp
     private Date idate;
 
