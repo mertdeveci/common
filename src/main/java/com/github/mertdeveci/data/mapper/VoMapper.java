@@ -4,5 +4,5 @@ import com.github.mertdeveci.data.entity.AbstractEntity;
 
 import java.util.function.Function;
 
-public interface VoMapper <E extends AbstractEntity, V extends Record> extends Function<E, V> {
+public abstract class VoMapper <E extends AbstractEntity, V extends Record> implements Function<E, V> {
 }

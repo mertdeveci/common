@@ -4,6 +4,5 @@ import com.github.mertdeveci.data.entity.AbstractEntity;
 
 import java.util.function.Function;
 
-public interface EntityMapper<E extends AbstractEntity, V> extends Function<V, E> {
-    E toEntity(V vo);
+public abstract class EntityMapper<E extends AbstractEntity, V> implements Function<V, E> {
 }
