@@ -1,18 +1,16 @@
 package com.github.mertdeveci.enums;
 
-public enum ResponseStatus {
+import lombok.Getter;
+
+@Getter
+public enum ResultStatus {
     SUCCESS("success"),
     ERROR("error"),
     FAIL("fail");
 
     private final String status;
 
-    ResponseStatus(String status) {
+    ResultStatus(String status) {
         this.status = status;
-    }
-
-
-    public String getStatus() {
-        return status;
     }
 }
