@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface EntityBaseRepository<E extends AbstractStatusEntity>
+public interface EntityRepository<E extends AbstractStatusEntity>
         extends JpaRepository<E, Long> {
 
     Optional<E> findByIdAndStatus(Long id, Status status);

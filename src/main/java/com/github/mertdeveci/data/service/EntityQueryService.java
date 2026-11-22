@@ -1,7 +1,7 @@
 package com.github.mertdeveci.data.service;
 
 import com.github.mertdeveci.data.entity.AbstractStatusEntity;
-import com.github.mertdeveci.data.repository.EntityBaseRepository;
+import com.github.mertdeveci.data.repository.EntityRepository;
 import com.github.mertdeveci.data.repository.projection.EntityProjection;
 import com.github.mertdeveci.enums.Status;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public abstract class EntityQueryService<E extends AbstractStatusEntity,
-        R extends EntityBaseRepository<E>> {
+        R extends EntityRepository<E>> {
 
     protected final R repository;
 
