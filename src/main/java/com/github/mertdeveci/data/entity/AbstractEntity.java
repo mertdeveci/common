@@ -1,9 +1,6 @@
 package com.github.mertdeveci.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +17,11 @@ public abstract class AbstractEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "idate", nullable = false, updatable = false)

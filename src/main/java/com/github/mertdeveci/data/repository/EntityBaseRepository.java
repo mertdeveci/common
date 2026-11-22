@@ -1,6 +1,6 @@
 package com.github.mertdeveci.data.repository;
 
-import com.github.mertdeveci.data.entity.AbstractIdStatusEntity;
+import com.github.mertdeveci.data.entity.AbstractStatusEntity;
 import com.github.mertdeveci.data.repository.projection.EntityProjection;
 import com.github.mertdeveci.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface EntityBaseRepository<E extends AbstractIdStatusEntity>
+public interface EntityBaseRepository<E extends AbstractStatusEntity>
         extends JpaRepository<E, Long> {
 
     Optional<E> findByIdAndStatus(Long id, Status status);

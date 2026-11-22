@@ -1,6 +1,6 @@
 package com.github.mertdeveci.data.service;
 
-import com.github.mertdeveci.data.entity.AbstractIdStatusEntity;
+import com.github.mertdeveci.data.entity.AbstractStatusEntity;
 import com.github.mertdeveci.data.repository.EntityBaseRepository;
 import com.github.mertdeveci.data.utils.EntityUtils;
 import com.github.mertdeveci.enums.Status;
@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public abstract class EntityCommandService<E extends AbstractIdStatusEntity,
+public abstract class EntityCommandService<E extends AbstractStatusEntity,
         R extends EntityBaseRepository<E>> {
 
     protected final R repository;
